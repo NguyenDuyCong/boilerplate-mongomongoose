@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const mongodb = require('mongodb');
-require('dotenv').config();
-
+const mongoose = require("mongoose");
+const mongodb = require("mongodb");
+require("dotenv").config();
 
 let Person;
 
@@ -53,21 +52,25 @@ const queryChain = (done) => {
   done(null /*, data*/);
 };
 
-/** **Well Done !!**
-/* You completed these challenges, let's go celebrate !
- */
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 const Schema = mongoose.Schema;
 
-// create new schema
+// defining personSchema schema
 const personSchema = new Schema({
   name: { type: String, require: true },
   age: Number,
   favoriteFoods: [String]
-})
+});
 
-//create model from schema
+//create Person model
 Person = mongoose.model("Person", personSchema);
+
+/** **Well Done !!**
+/* You completed these challenges, let's go celebrate !
+ */
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
 
 exports.PersonModel = Person;
