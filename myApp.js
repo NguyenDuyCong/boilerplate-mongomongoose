@@ -4,6 +4,26 @@ require("dotenv").config();
 
 let Person;
 
+/**
+ * CODE
+ * Author: NDC
+ */
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true
+});
+const Schema = mongoose.Schema;
+
+// defining personSchema schema
+const personSchema = new Schema({
+  name: { type: String, require: true },
+  age: Number,
+  favoriteFoods: [String]
+});
+
+//create Person model
+Person = mongoose.model("Person", personSchema);
+
 const createAndSavePerson = (done) => {
   const person = new Person({
     name: "NDC",
@@ -11,8 +31,8 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["meat", "banana", "cookie"]
   });
 
-  person.save((err, data) => {
-    if (err) return done(err);
+  person.save(function (err, data) {
+    if (err) return console.error(err);
     done(null, data);
   });
   // done(null /*, data*/);
@@ -61,28 +81,6 @@ const queryChain = (done) => {
 
   done(null /*, data*/);
 };
-
-/**
- * CODE
- * Author: NDC
- */
-
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-const Schema = mongoose.Schema;
-
-// defining personSchema schema
-const personSchema = new Schema({
-  name: { type: String, require: true },
-  age: Number,
-  favoriteFoods: [String]
-});
-
-//create Person model
-Person = mongoose.model("Person", personSchema);
-createAndSavePerson();
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
